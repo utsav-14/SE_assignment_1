@@ -1,5 +1,5 @@
 # Instructions For The Tutorial.
-    Please read the instructions carefully and try to complete them before the tutorial.
+    Please read the instructions carefully and try to complete them during the tutorial.
  
 ### For The Main File
 
