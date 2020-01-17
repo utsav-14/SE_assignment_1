@@ -6,5 +6,5 @@
       * Clone this repo 
       * install ant by running '''sudo apt-get install ant'''
       * then go to the src folder by running '''cd src/com/cleancoder/args'''
-      * run '''ant compile'''
+      * run ```ant compile```
     
