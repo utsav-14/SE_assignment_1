@@ -1,7 +1,7 @@
 # Instructions For The Tutorial.
     Please read the instructions carefully and try to complete them before the tutorial.
  
-### For The Mail File
+### For The Main File
 
       * Clone this repo 
       * install ant by running 'sudo apt-get install ant'
