@@ -4,7 +4,7 @@
 ### 
 
       * Clone this repo 
-      * install ant by running __sudo apt-get install ant__
+       install ant by running __sudo apt-get install ant__
       * then go to the src folder by running **cd src/com/cleancoder/args**
       * run **ant compile**
       * run **ant jar**
