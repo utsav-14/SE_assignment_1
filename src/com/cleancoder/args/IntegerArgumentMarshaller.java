@@ -7,14 +7,14 @@ import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_INTEGER;
 import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_INTEGER;
 
 public class IntegerArgumentMarshaller implements ArgumentMarshaller {
-  private int intValue = 0;
+  private Integer portNumber = null;
 
   @Override
   public void set(Iterator<String> currentArgument) throws ArgsException {
     String parameter = null;
     try {
       parameter = currentArgument.next();
-      intValue = Integer.parseInt(parameter);
+      portNumber = Integer.parseInt(parameter);
     } catch (NoSuchElementException e) {
       throw new ArgsException(MISSING_INTEGER);
     } catch (NumberFormatException e) {
@@ -24,7 +24,7 @@ public class IntegerArgumentMarshaller implements ArgumentMarshaller {
 
   public static int getValue(ArgumentMarshaller am) {
     if (am != null && am instanceof IntegerArgumentMarshaller)
-      return ((IntegerArgumentMarshaller) am).intValue;
+      return ((IntegerArgumentMarshaller) am).portNumber;
     else
       return 0;
   }

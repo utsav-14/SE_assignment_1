@@ -1,20 +1,33 @@
 package com.cleancoder.args;
 
 public class ArgsMain {
+
+  private static final String SCHEMA = "l,p#,d*";
+  private static final Character LOGGING_FLAG = 'l';
+  private static final Character PORT_NUMBER_FLAG = 'p';
+  private static final Character DIRECTORY_NAME_FLAG = 'd';
+
   public static void main(String[] args) {
     try {
-      Args arg = new Args("l,p#,d*, k##", args);
-      boolean logging = arg.getBoolean('l');
-      int port = arg.getInt('p');
-      String directory = arg.getString('d');
-      Double cost = arg.getDouble('k');
-      executeApplication(logging, port, directory, cost);
+      CommandParameters parameters = extractArguments(args);
+      executeApplication(parameters);
     } catch (ArgsException e) {
       System.out.printf("Argument error: %s\n", e.errorMessage());
     }
   }
 
-  private static void executeApplication(boolean logging, int port, String directory, Double cost) {
-    System.out.printf("logging is %s, port:%d, directory:%s, Cost: %f\n",logging, port, directory, cost);
+  private static CommandParameters extractArguments(final String[] commandLineArgs) throws ArgsException {
+    Args arg = new Args(SCHEMA, commandLineArgs);
+    CommandParameters parameters = new CommandParameters();
+    parameters.setLoggingEnabled(arg.getBoolean(LOGGING_FLAG));
+    parameters.setPortNumber(arg.getInt(PORT_NUMBER_FLAG));
+    parameters.setDirectoryName(arg.getString(DIRECTORY_NAME_FLAG));
+    return  parameters;
+  }
+
+  private static void executeApplication(CommandParameters parameters) {
+    System.out.printf("Logging enabled:%s\nPort number:%d\nDirectory name:%s\n",parameters.isLoggingEnabled(),
+            parameters.getPortNumber(),
+            parameters.getDirectoryName());
   }
 }
