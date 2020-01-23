@@ -1,8 +1,9 @@
 package com.cleancoder.args;
 
-import static com.cleancoder.args.ArgsException.ErrorCode.*;
+import static com.cleancoder.args.ArgsException.ErrorCode.OK;
 
 public class ArgsException extends Exception {
+  static final long serialVersionUID = 1L;
   private char errorArgumentId = '\0';
   private String errorParameter = null;
   private ErrorCode errorCode = OK;

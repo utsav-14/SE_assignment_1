@@ -5,12 +5,12 @@ import java.util.*;
 import static com.cleancoder.args.ArgsException.ErrorCode.*;
 
 public class Args {
-  private Map<Character, ArgumentMarshaler> marshalers;
+  private Map<Character, ArgumentMarshaller> marshallers;
   private Set<Character> argsFound;
   private ListIterator<String> currentArgument;
 
   public Args(String schema, String[] args) throws ArgsException {
-    marshalers = new HashMap<Character, ArgumentMarshaler>();
+    marshallers = new HashMap<Character, ArgumentMarshaller>();
     argsFound = new HashSet<Character>();
 
     parseSchema(schema);
@@ -28,17 +28,17 @@ public class Args {
     String elementTail = element.substring(1);
     validateSchemaElementId(elementId);
     if (elementTail.length() == 0)
-      marshalers.put(elementId, new BooleanArgumentMarshaler());
+      marshallers.put(elementId, new BooleanArgumentMarshaller());
     else if (elementTail.equals("*"))
-      marshalers.put(elementId, new StringArgumentMarshaler());
+      marshallers.put(elementId, new StringArgumentMarshaller());
     else if (elementTail.equals("#"))
-      marshalers.put(elementId, new IntegerArgumentMarshaler());
+      marshallers.put(elementId, new IntegerArgumentMarshaller());
     else if (elementTail.equals("##"))
-      marshalers.put(elementId, new DoubleArgumentMarshaler());
+      marshallers.put(elementId, new DoubleArgumentMarshaller());
     else if (elementTail.equals("[*]"))
-      marshalers.put(elementId, new StringArrayArgumentMarshaler());
+      marshallers.put(elementId, new StringArrayArgumentMarshaller());
     else if (elementTail.equals("&"))
-      marshalers.put(elementId, new MapArgumentMarshaler());
+      marshallers.put(elementId, new MapArgumentMarshaller());
     else
       throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
   }
@@ -66,7 +66,7 @@ public class Args {
   }
 
   private void parseArgumentCharacter(char argChar) throws ArgsException {
-    ArgumentMarshaler m = marshalers.get(argChar);
+    ArgumentMarshaller m = marshallers.get(argChar);
     if (m == null) {
       throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
     } else {
@@ -89,26 +89,26 @@ public class Args {
   }
 
   public boolean getBoolean(char arg) {
-    return BooleanArgumentMarshaler.getValue(marshalers.get(arg));
+    return BooleanArgumentMarshaller.getValue(marshallers.get(arg));
   }
 
   public String getString(char arg) {
-    return StringArgumentMarshaler.getValue(marshalers.get(arg));
+    return StringArgumentMarshaller.getValue(marshallers.get(arg));
   }
 
   public int getInt(char arg) {
-    return IntegerArgumentMarshaler.getValue(marshalers.get(arg));
+    return IntegerArgumentMarshaller.getValue(marshallers.get(arg));
   }
 
   public double getDouble(char arg) {
-    return DoubleArgumentMarshaler.getValue(marshalers.get(arg));
+    return DoubleArgumentMarshaller.getValue(marshallers.get(arg));
   }
 
   public String[] getStringArray(char arg) {
-    return StringArrayArgumentMarshaler.getValue(marshalers.get(arg));
+    return StringArrayArgumentMarshaller.getValue(marshallers.get(arg));
   }
 
   public Map<String, String> getMap(char arg) {
-    return MapArgumentMarshaler.getValue(marshalers.get(arg));
+    return MapArgumentMarshaller.getValue(marshallers.get(arg));
   }
 }
