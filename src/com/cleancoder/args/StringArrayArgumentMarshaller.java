@@ -20,7 +20,7 @@ public class StringArrayArgumentMarshaller implements ArgumentMarshaller {
   }
 
   public static String[] getValue(ArgumentMarshaller am) {
-    if (am != null && am instanceof StringArrayArgumentMarshaller)
+    if (am instanceof StringArrayArgumentMarshaller)
       return ((StringArrayArgumentMarshaller) am).strings.toArray(new String[0]);
     else
       return new String[0];

@@ -11,7 +11,7 @@ public class BooleanArgumentMarshaller implements ArgumentMarshaller {
   }
 
   public static boolean getValue(ArgumentMarshaller am) {
-    if (am != null && am instanceof BooleanArgumentMarshaller)
+    if (am instanceof BooleanArgumentMarshaller)
       return ((BooleanArgumentMarshaller) am).loggingEnabled;
     else
       return false;

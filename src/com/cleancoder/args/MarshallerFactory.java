@@ -1,13 +1,11 @@
 package com.cleancoder.args;
 
-import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT;
-
 public class MarshallerFactory {
 
     private MarshallerFactory() {
     }
 
-    public static ArgumentMarshaller getInstance(char elementId, String elementTail) throws ArgsException {
+    public static ArgumentMarshaller getInstance(String elementId, String elementTail) throws ArgsException {
         switch (elementTail) {
             case "":
                 return new BooleanArgumentMarshaller();
@@ -22,7 +20,7 @@ public class MarshallerFactory {
             case "&":
                 return new MapArgumentMarshaller();
             default:
-                throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+                throw new ArgsException(ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
         }
     }
 }

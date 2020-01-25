@@ -23,7 +23,7 @@ public class IntegerArgumentMarshaller implements ArgumentMarshaller {
   }
 
   public static int getValue(ArgumentMarshaller am) {
-    if (am != null && am instanceof IntegerArgumentMarshaller)
+    if (am instanceof IntegerArgumentMarshaller)
       return ((IntegerArgumentMarshaller) am).portNumber;
     else
       return 0;

@@ -6,16 +6,15 @@ import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_ARGUMENT_NAME;
 import static com.cleancoder.args.ArgsException.ErrorCode.UNEXPECTED_ARGUMENT;
 
 public class Args {
-    private Map<Character, ArgumentMarshaller> marshallers;
-    private Set<Character> argsFound;
+    private Map<String, ArgumentMarshaller> marshallers;
+    private Set<String> argsFound;
     private ListIterator<String> currentArgument;
 
-    public Args(String schema, String[] args) throws ArgsException {
-        marshallers = new HashMap<Character, ArgumentMarshaller>();
-        argsFound = new HashSet<Character>();
-
+    public Args(String schema, String[] commandLineArgs) throws ArgsException {
+        marshallers = new HashMap<String, ArgumentMarshaller>();
+        argsFound = new HashSet<String>();
         parseSchema(schema);
-        parseArgumentStrings(Arrays.asList(args));
+        parseArgumentStrings(Arrays.asList(commandLineArgs));
     }
 
     private void parseSchema(String schema) throws ArgsException {
@@ -25,22 +24,31 @@ public class Args {
     }
 
     private void parseSchemaElement(String element) throws ArgsException {
-        char elementId = element.charAt(0);
-        String elementTail = element.substring(1);
+        int lastIndex = 1;
+        for (int i = 1; i < element.length(); ++i) {
+            if (!Character.isLetter(element.charAt(i))) {
+                break;
+            }
+            ++lastIndex;
+        }
+        String elementId = element.substring(0, lastIndex);
+        String elementTail = element.substring(lastIndex);
         validateSchemaElementId(elementId);
         marshallers.put(elementId, MarshallerFactory.getInstance(elementId, elementTail));
     }
 
-    private void validateSchemaElementId(char elementId) throws ArgsException {
-        if (!Character.isLetter(elementId))
-            throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
+    private void validateSchemaElementId(String elementId) throws ArgsException {
+        for (int i = 0; i < elementId.length(); ++i) {
+            if (!Character.isLetter(elementId.charAt(i)))
+                throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
+        }
     }
 
     private void parseArgumentStrings(List<String> argsList) throws ArgsException {
         for (currentArgument = argsList.listIterator(); currentArgument.hasNext(); ) {
             String argString = currentArgument.next();
             if (argString.startsWith("-")) {
-                parseArgumentCharacters(argString.substring(1));
+                parseArgName(argString.substring(1));
             } else {
                 currentArgument.previous();
                 break;
@@ -48,27 +56,25 @@ public class Args {
         }
     }
 
-    private void parseArgumentCharacters(String argChars) throws ArgsException {
-        for (int i = 0; i < argChars.length(); i++)
-            parseArgumentCharacter(argChars.charAt(i));
-    }
-
-    private void parseArgumentCharacter(char argChar) throws ArgsException {
-        ArgumentMarshaller m = marshallers.get(argChar);
-        if (m == null) {
-            throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
+    private void parseArgName(String argName) throws ArgsException {
+        Optional<ArgumentMarshaller> marshallerForArgName = Optional.ofNullable(marshallers.get(argName));
+        if (marshallerForArgName.isPresent()) {
+            argsFound.add(argName);
+            addCurrentArgumentToMarshaller(marshallerForArgName, argName);
         } else {
-            argsFound.add(argChar);
-            try {
-                m.set(currentArgument);
-            } catch (ArgsException e) {
-                e.setErrorArgumentId(argChar);
-                throw e;
-            }
+            throw new ArgsException(UNEXPECTED_ARGUMENT, argName, null);
         }
     }
 
-    public boolean has(char arg) {
+    private void addCurrentArgumentToMarshaller(Optional<ArgumentMarshaller> marshallerForArgName, String argName) throws  ArgsException{
+        try {
+            ((ArgumentMarshaller)marshallerForArgName.get()).set(currentArgument);
+        }catch (ArgsException ex){
+            ex.setErrorArgumentId(argName);
+            throw ex;
+        }
+    }
+    public boolean has(String arg) {
         return argsFound.contains(arg);
     }
 
@@ -76,27 +82,27 @@ public class Args {
         return currentArgument.nextIndex();
     }
 
-    public boolean getBoolean(char arg) {
+    public boolean getBoolean(String arg) {
         return BooleanArgumentMarshaller.getValue(marshallers.get(arg));
     }
 
-    public String getString(char arg) {
+    public String getString(String arg) {
         return StringArgumentMarshaller.getValue(marshallers.get(arg));
     }
 
-    public int getInt(char arg) {
+    public int getInt(String arg) {
         return IntegerArgumentMarshaller.getValue(marshallers.get(arg));
     }
 
-    public double getDouble(char arg) {
+    public double getDouble(String arg) {
         return DoubleArgumentMarshaller.getValue(marshallers.get(arg));
     }
 
-    public String[] getStringArray(char arg) {
+    public String[] getStringArray(String arg) {
         return StringArrayArgumentMarshaller.getValue(marshallers.get(arg));
     }
 
-    public Map<String, String> getMap(char arg) {
+    public Map<String, String> getMap(String arg) {
         return MapArgumentMarshaller.getValue(marshallers.get(arg));
     }
 }

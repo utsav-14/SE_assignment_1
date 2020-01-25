@@ -18,7 +18,7 @@ public class StringArgumentMarshaller implements ArgumentMarshaller {
   }
 
   public static String getValue(ArgumentMarshaller am) {
-    if (am != null && am instanceof StringArgumentMarshaller)
+    if (am instanceof StringArgumentMarshaller)
       return ((StringArgumentMarshaller) am).directoryName;
     else
       return "";

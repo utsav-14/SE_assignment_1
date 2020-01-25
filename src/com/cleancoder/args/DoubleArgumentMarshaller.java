@@ -23,7 +23,7 @@ public class DoubleArgumentMarshaller implements ArgumentMarshaller {
   }
 
   public static double getValue(ArgumentMarshaller am) {
-    if (am != null && am instanceof DoubleArgumentMarshaller)
+    if (am instanceof DoubleArgumentMarshaller)
       return ((DoubleArgumentMarshaller) am).doubleValue;
     else
       return 0.0;
