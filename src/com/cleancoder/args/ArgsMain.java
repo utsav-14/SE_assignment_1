@@ -9,11 +9,15 @@ public class ArgsMain {
 
   public static void main(String[] args) {
     try {
-      CommandParameters parameters = extractArguments(args);
-      executeApplication(parameters);
+      extractArgsAndExecuteApplication(args);
     } catch (ArgsException e) {
       System.out.printf("Argument error: %s\n", e.errorMessage());
     }
+  }
+
+  private static void extractArgsAndExecuteApplication(String[] commandLineArgs) throws  ArgsException{
+    CommandParameters parameters = extractArguments(commandLineArgs);
+    executeApplication(parameters);
   }
 
   private static CommandParameters extractArguments(final String[] commandLineArgs) throws ArgsException {
