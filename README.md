@@ -15,6 +15,17 @@
       * run 'ant jar'
       * run 'java -cp build/jar/args.jar com.cleancoder.args.ArgsMain'
       
+      Schema:
+       - String    - Boolean arg.
+       - String*   - String arg.
+       - String#   - Integer arg.
+       - String##  - double arg.
+       - String[*] - one element of a string array.
+      
+      Example schema: (logging,directory*,port#,time##,authors[*])
+      Coresponding command line: "-logging -directory Home -port 8081 -time 3.2 -authors uncleBob -authors utsav
+
+      
 ### For the tests:
         * Run the command given below from the root folder of this repo
         * 'java -cp "lib/junit-4.13.jar:lib/hamcrest-core-1.3.jar:build/jar/args.jar" ./test/com/cleancoder/args/ArgsTest.java testCreateWithNoSchemaOrArguments'
