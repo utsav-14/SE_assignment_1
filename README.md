@@ -51,10 +51,10 @@
         * String parameters support : Command line parameters now support Strings which can describe the function of the 
         parameters better than single characters.  
         
-        * More modularity in try/catch blocks : The exception handling code is made more modular using methods intsead
+        * More modularity in try/catch blocks : The exception handling code is made more modular using methods instead
         of big blocks of code.
         
         * Separation of Exception classes: ArgsTest has been decomposed into separate test class for each data type to
         make it more extensible. 
         
-        * Created a TestSuite to run all tests at once
+        * Created a TestSuite to run all tests at once.
