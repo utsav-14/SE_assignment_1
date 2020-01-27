@@ -9,6 +9,7 @@ import static com.cleancoder.args.ArgsException.ErrorCode.*;
 import static org.junit.Assert.*;
 
 
+
 public class ArgsTestCommon {
 
     public static void main(String[] args) {
@@ -89,6 +90,16 @@ public class ArgsTestCommon {
         assertTrue(args.getBoolean("x"));
         assertFalse(args.getBoolean("y"));
         assertEquals(1, args.nextArgument());
+    }
+
+    @Test
+    public void testOutOfOrderFlags() throws Exception {
+        Args args = new Args("x,y", new String[]{"-y", "-x"});
+        assertTrue(args.has("x"));
+        assertTrue(args.has("y"));
+        assertTrue(args.getBoolean("x"));
+        assertTrue(args.getBoolean("y"));
+        assertEquals(2, args.nextArgument());
     }
 
 }

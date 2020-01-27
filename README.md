@@ -2,6 +2,10 @@
 ## Objective:
     To apply good coding practices to develop code that is easy to read, extend and maintain.
  
+ ## Submitted By:
+   Utsav Agrawal  
+   Roll No. 2019202006
+ 
 ## Disclaimer:
     The code used for cleanup originally belongs to: https://github.com/unclebob/javaargs 
 
@@ -13,7 +17,7 @@
       * then go to the folder where you have cloned this repo
       * run 'ant compile'
       * run 'ant jar'
-      * run 'java -cp build/jar/args.jar com.cleancoder.args.ArgsMain'
+      * run 'java -cp build/jar/args.jar com.cleancoder.args.ArgsMain -logging -port 9903 -directory home'
       
       Schema:
        - String    - Boolean arg.
@@ -28,7 +32,7 @@
       
 ### For the tests:
         * Run the command given below from the root folder of this repo
-        * 'java -cp "lib/junit-4.13.jar:lib/hamcrest-core-1.3.jar:build/jar/args.jar" ./test/com/cleancoder/args/ArgsTest.java testCreateWithNoSchemaOrArguments'
+        * 'java -cp "lib/junit-4.13.jar:lib/hamcrest-core-1.3.jar:build/jar/args.jar" ./test/com/cleancoder/args/ArgsTestCommon.java'
     
 ### Changelog:
         Enlisted below are the changes made to the original code and the reasoning behind them:
@@ -52,3 +56,5 @@
         
         * Separation of Exception classes: ArgsTest has been decomposed into separate test class for each data type to
         make it more extensible. 
+        
+        * Created a TestSuite to run all tests at once

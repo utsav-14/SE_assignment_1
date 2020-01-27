@@ -1,22 +1,12 @@
 package com.cleancoder.args;
 
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 
 import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_DOUBLE;
 import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_DOUBLE;
 import static org.junit.Assert.*;
 
 public class ArgsTestDouble {
-    public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(ArgsTestDouble.class);
-        for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
-        }
-        System.out.println(result.wasSuccessful());
-    }
 
     @Test
     public void testSimpleDoublePresent() throws Exception {
