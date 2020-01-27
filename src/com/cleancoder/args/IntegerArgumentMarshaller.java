@@ -7,7 +7,7 @@ import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_INTEGER;
 import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_INTEGER;
 
 public class IntegerArgumentMarshaller implements ArgumentMarshaller {
-    private Integer portNumber = null;
+    private Integer portNumber = 0;
 
     @Override
     public void set(Iterator<String> currentArgument) throws ArgsException {

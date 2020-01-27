@@ -38,11 +38,11 @@
         * Wrapper classes in place of primitive data types : Objects of wrapper classes are used to mark clear distinction
         between acceptable and unacceptable values.
         
-        * Factory class for instance creation : The responsibility of instance creation has now been delegated to a Factory class
-        thereby reducing the duties of Args.java class.
+        * Factory class for instance creation : The responsibility of instance creation has now been delegated to a Factory
+         class thereby reducing the duties of Args.java class.
         
-        * Optional class usage : In place of checking for null values, Optional class is used to better handle missing values 
-        and enhance readability.
+        * Optional class usage : In place of checking for null values, Optional class is used to better handle missing
+         values and enhance readability.
         
         * String parameters support : Command line parameters now support Strings which can describe the function of the 
         parameters better than single characters.  
@@ -50,3 +50,5 @@
         * More modularity in try/catch blocks : The exception handling code is made more modular using methods intsead
         of big blocks of code.
         
+        * Separation of Exception classes: ArgsTest has been decomposed into separate test class for each data type to
+        make it more extensible. 

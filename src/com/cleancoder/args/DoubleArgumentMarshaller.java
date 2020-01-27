@@ -7,7 +7,7 @@ import static com.cleancoder.args.ArgsException.ErrorCode.INVALID_DOUBLE;
 import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_DOUBLE;
 
 public class DoubleArgumentMarshaller implements ArgumentMarshaller {
-    private Double doubleValue = null;
+    private Double doubleValue = 0.0;
 
     @Override
     public void set(Iterator<String> currentArgument) throws ArgsException {

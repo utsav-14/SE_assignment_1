@@ -15,7 +15,7 @@ public class ArgsMain {
         }
     }
 
-    private static void extractArgsAndExecuteApplication(String[] commandLineArgs) throws ArgsException {
+    private static void extractArgsAndExecuteApplication(final String[] commandLineArgs) throws ArgsException {
         CommandParameters parameters = extractArguments(commandLineArgs);
         executeApplication(parameters);
     }
@@ -29,7 +29,7 @@ public class ArgsMain {
         return parameters;
     }
 
-    private static void executeApplication(CommandParameters parameters) {
+    private static void executeApplication(final CommandParameters parameters) {
         System.out.printf("Logging enabled:%s\nPort number:%d\nDirectory name:%s\n", parameters.isLoggingEnabled(),
                 parameters.getPortNumber(),
                 parameters.getDirectoryName());

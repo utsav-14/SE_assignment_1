@@ -6,12 +6,16 @@ import java.util.NoSuchElementException;
 import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_STRING;
 
 public class StringArgumentMarshaller implements ArgumentMarshaller {
-    private String directoryName = null;
+    private String directoryName = "";
 
     @Override
     public void set(Iterator<String> currentArgument) throws ArgsException {
         try {
             directoryName = currentArgument.next();
+            if(directoryName.startsWith("-")){
+                directoryName = null;
+                throw new ArgsException(MISSING_STRING);
+            }
         } catch (NoSuchElementException e) {
             throw new ArgsException(MISSING_STRING);
         }
