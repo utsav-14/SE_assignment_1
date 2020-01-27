@@ -24,6 +24,14 @@ public class Args {
     }
 
     private void parseSchemaElement(String element) throws ArgsException {
+        int lastIndex = findElementId(element);
+        String elementId = element.substring(0, lastIndex);
+        String elementTail = element.substring(lastIndex);
+        validateSchemaElementId(elementId);
+        marshallers.put(elementId, MarshallerFactory.getInstance(elementId, elementTail));
+    }
+
+    private int findElementId(String element) {
         int lastIndex = 1;
         for (int i = 1; i < element.length(); ++i) {
             if (!Character.isLetter(element.charAt(i))) {
@@ -31,10 +39,7 @@ public class Args {
             }
             ++lastIndex;
         }
-        String elementId = element.substring(0, lastIndex);
-        String elementTail = element.substring(lastIndex);
-        validateSchemaElementId(elementId);
-        marshallers.put(elementId, MarshallerFactory.getInstance(elementId, elementTail));
+        return lastIndex;
     }
 
     private void validateSchemaElementId(String elementId) throws ArgsException {
@@ -66,14 +71,15 @@ public class Args {
         }
     }
 
-    private void addCurrentArgumentToMarshaller(Optional<ArgumentMarshaller> marshallerForArgName, String argName) throws  ArgsException{
+    private void addCurrentArgumentToMarshaller(Optional<ArgumentMarshaller> marshallerForArgName, String argName) throws ArgsException {
         try {
-            ((ArgumentMarshaller)marshallerForArgName.get()).set(currentArgument);
-        }catch (ArgsException ex){
+            (marshallerForArgName.get()).set(currentArgument);
+        } catch (ArgsException ex) {
             ex.setErrorArgumentId(argName);
             throw ex;
         }
     }
+
     public boolean has(String arg) {
         return argsFound.contains(arg);
     }
