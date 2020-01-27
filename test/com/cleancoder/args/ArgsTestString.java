@@ -16,7 +16,7 @@ public class ArgsTestString {
     }
 
     @Test
-    public void testMissingStringArgument() throws Exception {
+    public void testMissingStringArgument() {
         try {
             new Args("directory*", new String[]{"-directory"});
             fail();
@@ -27,7 +27,7 @@ public class ArgsTestString {
     }
 
     @Test
-    public void testSchemaMismatchString() throws Exception {
+    public void testSchemaMismatchString() {
         try {
             Args args = new Args("directory*", new String[]{"-path"});
             assertTrue(args.has("directory"));
@@ -38,7 +38,7 @@ public class ArgsTestString {
     }
 
     @Test
-    public void testMissingStringFollowedByDifferentElement() throws Exception {
+    public void testMissingStringFollowedByDifferentElement() {
         try {
             Args args = new Args("directory*,port#", new String[]{"-directory", "-port", "100"});
             assertTrue(args.has("directory"));

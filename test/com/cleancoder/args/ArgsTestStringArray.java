@@ -17,7 +17,7 @@ public class ArgsTestStringArray {
     }
 
     @Test
-    public void testMissingStringArrayElement() throws Exception {
+    public void testMissingStringArrayElement() {
         try {
             new Args("x[*]", new String[]{"-x"});
             fail();
@@ -39,7 +39,7 @@ public class ArgsTestStringArray {
     }
 
     @Test
-    public void testSchemaMismatchStringArray() throws Exception {
+    public void testSchemaMismatchStringArray() {
         try {
             Args args = new Args("files[*]", new String[]{"-names", "abc", "-names", "bcd", "-names", "cde"});
             assertTrue(args.has("files"));

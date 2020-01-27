@@ -16,7 +16,7 @@ public class ArgsTestDouble {
     }
 
     @Test
-    public void testInvalidDouble() throws Exception {
+    public void testInvalidDouble() {
         try {
             new Args("x##", new String[]{"-x", "Forty two.3"});
             fail();
@@ -28,7 +28,7 @@ public class ArgsTestDouble {
     }
 
     @Test
-    public void testMissingDouble() throws Exception {
+    public void testMissingDouble() {
         try {
             new Args("x##", new String[]{"-x"});
             fail();
@@ -39,7 +39,7 @@ public class ArgsTestDouble {
     }
 
     @Test
-    public void testSchemaMismatchDouble() throws Exception {
+    public void testSchemaMismatchDouble() {
         try {
             Args args = new Args("cost##", new String[]{"-fraction", "0.8"});
             assertTrue(args.has("cost"));

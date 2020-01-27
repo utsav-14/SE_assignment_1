@@ -17,7 +17,7 @@ public class ArgsTestInteger {
     }
 
     @Test
-    public void testInvalidInteger() throws Exception {
+    public void testInvalidInteger() {
         try {
             new Args("x#", new String[]{"-x", "Forty two"});
             fail();
@@ -29,7 +29,7 @@ public class ArgsTestInteger {
     }
 
     @Test
-    public void testMissingInteger() throws Exception {
+    public void testMissingInteger() {
         try {
             new Args("x#", new String[]{"-x"});
             fail();
@@ -40,7 +40,7 @@ public class ArgsTestInteger {
     }
 
     @Test
-    public void testSchemaMismatchInteger() throws Exception {
+    public void testSchemaMismatchInteger() {
         try {
             Args args = new Args("port#", new String[]{"-count", "100"});
             assertTrue(args.has("port"));

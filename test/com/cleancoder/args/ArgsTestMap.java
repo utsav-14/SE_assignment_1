@@ -31,7 +31,7 @@ public class ArgsTestMap {
     }
 
     @Test
-    public void testSchemaMismatchMap() throws Exception {
+    public void testSchemaMismatchMap() {
         try {
             Args args = new Args("dict&", new String[]{"-map", "k1:v1,k2:v2"});
             assertTrue(args.has("dict"));

@@ -29,7 +29,7 @@ public class ArgsTestCommon {
 
 
     @Test
-    public void testWithNoSchemaButWithOneArgument() throws Exception {
+    public void testWithNoSchemaButWithOneArgument() {
         try {
 
             new Args("", new String[]{"-x"});
@@ -41,7 +41,7 @@ public class ArgsTestCommon {
     }
 
     @Test
-    public void testWithNoSchemaButWithMultipleArguments() throws Exception {
+    public void testWithNoSchemaButWithMultipleArguments() {
         try {
             new Args("", new String[]{"-x", "-y"});
             fail();
@@ -53,7 +53,7 @@ public class ArgsTestCommon {
     }
 
     @Test
-    public void testNonLetterSchema() throws Exception {
+    public void testNonLetterSchema() {
         try {
             new Args("*", new String[]{});
             fail("Args constructor should have thrown exception");
@@ -64,7 +64,7 @@ public class ArgsTestCommon {
     }
 
     @Test
-    public void testInvalidArgumentFormat() throws Exception {
+    public void testInvalidArgumentFormat() {
         try {
             new Args("f~", new String[]{});
             fail("Args constructor should have thrown exception");
@@ -100,6 +100,26 @@ public class ArgsTestCommon {
         assertTrue(args.getBoolean("x"));
         assertTrue(args.getBoolean("y"));
         assertEquals(2, args.nextArgument());
+    }
+
+    @Test
+    public void testMalFormedSchema() {
+        try {
+            Args args = new Args("x-y#", new String[]{"-x", "-y", "1220"});
+        }catch (ArgsException e){
+            assertEquals(INVALID_ARGUMENT_FORMAT, e.getErrorCode());
+            assertEquals("x", e.getErrorArgumentId());
+        }
+    }
+
+    @Test
+    public void testDuplicateElementId() {
+        try{
+            Args args = new Args("x, x#", new String[]{"-x", "-x", "1220"});
+            assertFalse(args.getBoolean("x"));
+        }catch (ArgsException e){
+            assertEquals(INVALID_INTEGER, e.getErrorCode());
+        }
     }
 
 }
