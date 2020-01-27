@@ -40,30 +40,30 @@ To run the code on your machine:
 #### Changelog:
    Enlisted below are the changes made to the original code and the reasoning behind them:
         
-##### Variable renaming : 
+#### Variable renaming : 
    Several variables were renamed to better describe the purpose they serve.
         
-##### Wrapper classes in place of primitive data types :
+#### Wrapper classes in place of primitive data types :
    Objects of wrapper classes are used to mark clear distinction between acceptable and unacceptable
     values.
         
-##### Factory class for instance creation :
+#### Factory class for instance creation :
    The responsibility of instance creation has now been delegated to a Factory class thereby  
     reducing the duties of Args.java class.
         
-##### Optional class usage :
+#### Optional class usage :
    In place of checking for null values, Optional class is used to better handle missing values 
    and enhance readability.
         
-##### String parameters support :
+#### String parameters support :
    Command line parameters now support Strings which can describe the function of the parameters 
    better than single characters.  
         
-##### More modularity in try/catch blocks : 
+#### More modularity in try/catch blocks : 
    The exception handling code is made more modular using methods instead of big blocks of code.
         
-##### Separation of Exception classes:
+#### Separation of Exception classes:
    ArgsTest has been decomposed into separate test class for each data type to make it more 
    extensible. 
         
-##### Created a TestSuite to run all tests at once
+#### Created a TestSuite to run all tests at once
